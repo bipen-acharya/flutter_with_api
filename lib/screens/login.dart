@@ -1,4 +1,5 @@
 import 'package:class_demo_project/controller/login_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 class Login extends StatelessWidget {
   Login({super.key});
 
+
   var _key = GlobalKey<FormState>();
 
   LoginController controller = Get.put(LoginController());
@@ -14,6 +16,11 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LoaderOverlay(
+      overlayWidget: const Center(
+          child: CupertinoActivityIndicator(
+        color: Colors.white,
+        radius: 25,
+      )),
       child: Scaffold(
         body: SafeArea(
           child: Padding(

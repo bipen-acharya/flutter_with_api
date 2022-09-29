@@ -1,4 +1,4 @@
-import 'package:class_demo_project/controller/user_controller.dart';
+import 'package:class_demo_project/controller/register_user_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

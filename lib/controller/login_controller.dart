@@ -1,15 +1,19 @@
+import 'dart:convert';
+
 import 'package:class_demo_project/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:http/http.dart' as http;
-import '../model/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../model/login_model.dart';
 import '../services/api_service.dart';
 
 class LoginController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  late SharedPreferences prefs;
 
   loginUser({
     required String email,
@@ -22,12 +26,18 @@ class LoginController extends GetxController {
       );
       http.Response response = await AuthApiService().login(user);
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        Get.to(const HomePage());
+        prefs = await SharedPreferences.getInstance();
+        var responseBody = jsonDecode(response.body);
+        prefs.setString("token", responseBody["refreshToken"]);
+        Get.offAll( HomePage());
+        print(response.body);
       } else {
-        throw Exception("Invalid");
+        var responseBody = jsonDecode(response.body);
+        print(response.body);
+        throw Exception(responseBody["message"]);
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
+      Fluttertoast.showToast(msg: e.toString().replaceAll("Exception:", ""));
     }
   }
 }

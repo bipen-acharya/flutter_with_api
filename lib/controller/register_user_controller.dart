@@ -1,8 +1,11 @@
-import 'package:class_demo_project/model/register.dart';
+import 'dart:convert';
+
+import 'package:class_demo_project/model/registerUser_model.dart';
+import 'package:class_demo_project/screens/login.dart';
 import 'package:class_demo_project/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class UserController extends GetxController {
@@ -36,11 +39,14 @@ class UserController extends GetxController {
           textColor: Colors.white,
           fontSize: 16.0,
         );
+        Get.offAll( Login());
       } else {
+        var responseBody = jsonDecode(response.body);
+        print(response.body);
         throw Exception("Invalid");
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
+      Fluttertoast.showToast(msg: e.toString().replaceAll("Exception:", ""));
     }
   }
 }
