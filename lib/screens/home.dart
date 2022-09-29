@@ -29,10 +29,15 @@ class HomePage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                print(controller.getUserDetails());
-                // AuthController.logOutUser();
+                AuthController.logOutUser();
               },
               child: const Text("Log Out"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                controller.getUserDetails();
+              },
+              child: const Text("User Details"),
             ),
           ],
         ),

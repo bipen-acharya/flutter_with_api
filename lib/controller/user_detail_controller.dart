@@ -16,7 +16,7 @@ class UserDetailsController extends GetxController {
         var listOfDetails = UserDetails.userDetailsFromJson(response.body);
         users.add(listOfDetails);
         print(response.body);
-        print(users);
+        // print(users);
       } else {
         var responseBody = jsonDecode(response.body);
         print(response.body);
